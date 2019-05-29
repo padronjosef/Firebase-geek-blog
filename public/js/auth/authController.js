@@ -17,19 +17,33 @@ $(() => {
     auth.autEmailPass(email, password)
   });
 
-  $("#authGoogle").click(() => objAuth.authCuentaGoogle());
-  $("#authFB").click(() =>objAuth.authCuentaFacebook());
+  $("#btnRestablecer").click(() => {
+    const email = $('#emailRestablecer').val();
+    const auth = new Autenticacion()
+    auth.resetPasswordByEmail(email)
+  });
 
-  $("#authTwitter").click(() =>objAuth.authCuentaTwitter());
+  $('#btnresetEmail').click(() => {
+    $('#modalSesion').modal('close');
+    $('#modalrestablecer').modal('open');
+  });
+  
+  $('#btnRegresar').click(() => {
+    $('#modalrestablecer').modal('close');
+    $('#modalSesion').modal('open');
+  });
 
   $('#btnRegistrarse').click(() => {
     $('#modalSesion').modal('close');
     $('#modalRegistro').modal('open');
   });
-
+  
   $('#btnIniciarSesion').click(() => {
     $('#modalRegistro').modal('close');
     $('#modalSesion').modal('open');
   });
-
+  
+  $("#authGoogle").click(() => objAuth.authCuentaGoogle());
+  $("#authFB").click(() =>objAuth.authCuentaFacebook());
+  $("#authTwitter").click(() =>objAuth.authCuentaTwitter());
 });

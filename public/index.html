@@ -100,7 +100,8 @@
             <div class="registro-bienvenida-texto">
               Publica, aprende y conecta con otros por medio de Geek Posts.
             </div>
-            <span>Empieza Ahora</span>
+            <span>¿Olviste tu contraseña?</span>
+            <a id="btnresetEmail" class="btn waves-effect waves-light mt-12">Restablecer<i class="material-icons right">mail_outline</i></a>
           </div>
           <div class="col s12 m6 registro-formulario">
             <div class="input-field">                            
@@ -168,6 +169,34 @@
     </div>
   </div>
 
+  <!-- Modal de restablecer contraseña -->
+  <div id="modalrestablecer" class="modal modal-registro">
+    <div class="modal-content">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6 registro-bienvenida">
+            <h4>Olvide mi contraseña</h4>
+            <div class="registro-bienvenida-texto">
+              Ingresa tu E-mail para restablecer la contraseña.
+            </div>
+          </div>
+          <div class="col s12 m6 registro-formulario">
+            <div class="input-field">                            
+              <input id="emailRestablecer" type="email" required/>
+              <label for="emailRestablecer">E-mail:</label>
+            </div>   
+            <div class="col s12 m12 div-btnRegistrarse">
+              <a id="btnRestablecer" class="btn waves-effect waves-light">Restablecer<i class="material-icons left">mail_outline</i></a>                        
+            </div>
+          </div>
+          <div class="col s12 m12 div-btnRegistrarse">
+            <a id="btnRegresar" class="btn waves-effect waves-light">Iniciar Sesión<i class="material-icons right">send</i></a>
+          </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
   <!-- Modal Post -->
   <div id="modalPost" class="modal modal-registro">
     <div class="modal-content">
@@ -220,6 +249,8 @@
 <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
 
 <!--build:js js/main.min.js -->
 <script type="text/javascript" src="js/config/ConfigFirebase.js"></script>

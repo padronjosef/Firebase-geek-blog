@@ -5,16 +5,17 @@ class Autenticacion {
       if(result.user.emailVerified){
         $('#avatar').attr('src', 'imagenes/usuario_auth.png')
         Materialize.toast(`Bienvenido ${result.user.displayName}`, 5000)
-      }else{
+      } else{
         firebase.auth().signOut()
         Materialize.toast(
           `Por Favor realiza la verfificacion de la cuenta`
           , 5000)
       }
     })
-
-    //$('.modal').modal('close')
-
+    .catch(error => {
+      console.error(error)
+      Materialize.toast(error.message, 4000)
+    });
   }
 
   crearCuentaEmailPass (email, password, nombres) {
@@ -47,6 +48,28 @@ class Autenticacion {
         console.error(error)
         Materialize.toast(error.message, 4000)
       })
+  }
+
+  resetPasswordByEmail(email) {
+    if (email) {
+      const configuracion = {
+        url: "http://localhost:5500/"
+      };
+
+      firebase.auth().sendPasswordResetEmail(email, configuracion)
+        .then(result => {
+          console.log(result);
+          Materialize.toast( `Se ha enviado un correo para reestablecer la contraseña`, 4000 );
+
+          $(".modal").modal("close");
+        })
+        .catch(error => {
+          console.log(error);
+          Materialize.toast(error.message, 4000);
+        });
+    } else {
+      Materialize.toast(`Por favor ingrese su correo`, 4000);
+    }
   }
 
   authCuentaGoogle () {
