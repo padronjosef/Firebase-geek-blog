@@ -36,6 +36,7 @@
       <li><a href="index.html#footer">Contactenos</a></li>
     </ul>
   </nav>
+  
   <h4 id="tituloPost" class="titulo-posts">Posts de la Comunidad</h4>
   <section class="posts" id="posts">        
   </section>
@@ -84,9 +85,10 @@
         <div class="form-col2">
           <label for="comentariosContacto">Comentarios:</label>
           <textarea id="comentariosContacto" placeholder="Escribe tu comentario" cols="30" rows="6" required></textarea>
-          <input type="submit" class="waves-effect waves-light btn btnPpal" value="Enviar" />
+          <input type="submit" id="btncontactForm" class="waves-effect waves-light btn btnPpal" value="Enviar" />
         </div>
       </div>
+
     </div>
   </footer>
 
@@ -252,6 +254,8 @@
 
 <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+
 <!--build:js js/main.min.js -->
 <script type="text/javascript" src="js/config/ConfigFirebase.js"></script>
 <script type="text/javascript" src="js/util/util.js"></script>
@@ -260,6 +264,7 @@
 <script type="text/javascript" src="js/auth/autenticacion.js"></script>
 <script type="text/javascript" src="js/auth/authController.js"></script>
 <script type="text/javascript" src="js/post/postController.js"></script>
+<script type="text/javascript" src="js/contact/contactForm.js"></script>
 
 
 <!-- endbuild -->

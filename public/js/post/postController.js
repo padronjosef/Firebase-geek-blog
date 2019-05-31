@@ -7,10 +7,6 @@ $(() => {
     $('.determinate').attr('style', `width: 0%`)
     sessionStorage.setItem('imgNewPost', null)
 
-    // TODO: Validar que el usuario esta autenticado
-
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
-
     $('#modalPost').modal('open')
   })
 
@@ -22,10 +18,6 @@ $(() => {
       Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
       return
     }
-
-    // TODO: Validar que el usuario esta autenticado
-
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
 
     const titulo = $('#tituloNewPost').val()
     const descripcion = $('#descripcionNewPost').val()
@@ -53,13 +45,9 @@ $(() => {
   })
 
   $('#btnUploadFile').on('change', e => {
-    // TODO: Validar que el usuario esta autenticado
-
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
-
     const file = e.target.files[0]
-
-    // TODO: Referencia al storage
-    
+    const user = firebase.auth().currentUser
+    const post = new Post()
+    post.subirImagenPost(file, user.uid)
   })
 })
