@@ -217,7 +217,7 @@
                 <label for="tituloNewPost">Titulo:</label>
               </div>
               <div class="input-field">
-                <textarea id="descripcionNewPost" type="text"  maxlength="200" data-length="200" class="materialize-textarea" required></textarea>
+                <textarea id="descripcionNewPost" type="text"  maxlength="140" data-length="140" class="materialize-textarea" required></textarea>
                 <label for="descripcionNewPost">Descripción:</label>
               </div>
               <div class="input-field">
@@ -256,6 +256,8 @@
 
 <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+
 <!--build:js js/main.min.js -->
 <script type="text/javascript" src="js/config/ConfigFirebase.js"></script>
 <script type="text/javascript" src="js/util/util.js"></script>
@@ -265,7 +267,6 @@
 <script type="text/javascript" src="js/auth/authController.js"></script>
 <script type="text/javascript" src="js/post/postController.js"></script>
 <script type="text/javascript" src="js/contact/contactForm.js"></script>
-
 
 <!-- endbuild -->
 

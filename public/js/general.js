@@ -2,23 +2,73 @@ $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
 
-  // TODO: Adicionar el service worker
-
   // Init Firebase nuevamente
   firebase.initializeApp(varConfig);
 
-  // TODO: Registrar LLave publica de messaging
+  //Adicionar el service worker
+  navigator.serviceWorker.register('notificaciones-sw.js')
+  .then(registro => {
+    // console.log('service worker registrado')
+    firebase.messaging().useServiceWorker(registro)
+  }).catch(error => {
+    console.log(`Error al registrar el service worker ${error}`)
+  })
 
-  // TODO: Solicitar permisos para las notificaciones
+  const messaging = firebase.messaging()
+  
+  //Registrar credenciales web
+  messaging.usePublicVapidKey(
+    'BMnvSXvZ-vcALIPuBV3V0bX0iKRTviPYTy7wUgKSrdEd-vvwbPXWs3kQyEt1BlfN8XgtmOV1jSrMjllJ3A_VXs0'
+  )
 
-  // TODO: Recibir las notificaciones cuando el usuario esta foreground
+  //Solicitar permisos para las notificaciones
+  messaging.requestPermission()
+  .then(() =>{
+    // console.log('permiso otorgado')
+    return messaging.getToken()
+  }).then(token => {
+    // console.log('TOKEN')
+    // console.log(token)
+    const db = firebase.firestore()
+    db.settings({timestampsInSnapshots:true})
+    db.collection('tokens')
+    .doc(token)
+    .set({
+      token: token
+    }).catch(error =>{
+      console.log(`Error al insertar el token a la DB => ${error}`)
+    })
+  })
 
-  // TODO: Recibir las notificaciones cuando el usuario esta background
+  // Obtener el token cuando se refresca
+  messaging.onTokenRefresh(() => {
+    messaging.getToken().then(token => {
+      console.log("token se ha renovado")
+      const db = firebase.firestore()
+      db.settings({ timestampsInSnapshots: true })
+        db
+          .collection('tokens')
+          .doc(token)
+          .set({
+            token: token
+          })
+          .catch(error => {
+            console.log(`Error al insertar el token en la DB => ${error}`)
+          })
+    })
+  })
+
+  //Recibir las notificaciones cuando el usuario esta foreground
+  messaging.onMessage(payLoad => {
+    Materialize.toast(
+      `Ya tenemos un nuevo post. Revisalo, se llama ${payLoad.data.titulo}`, 6000
+    )
+  })
 
   const post = new Post()
   post.consultarTodosPost()
 
-  // TODO: Firebase observador del cambio de estado
+  //Firebase observador del cambio de estado
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
       $('#btnInicioSesion').text('salir')
@@ -33,7 +83,7 @@ $(() => {
     }
   })
 
-  // TODO: Evento boton inicio sesion
+  //Evento boton inicio sesion
   $('#btnInicioSesion').click(() => {
     const user = firebase.auth().currentUser
     if(user){

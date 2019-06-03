@@ -1,29 +1,53 @@
 class Comentarios {
-  constructor () {
+  constructor() {
     this.db = firebase.firestore()
-    const settings = { timestampsInSnapshots : true }
+    const settings = { timestampsInSnapshots: true }
     this.db.settings(settings)
   }
 
-  crearComentario (autor, descripcion) {
+  crearComentario(autor, descripcion, otroTipo) {
     return this.db.collection('comentarios').add({
-      autor : autor,
-      descripcion : descripcion,
+      autor: autor,
+      descripcion: descripcion,
+      fecha: firebase.firestore.FieldValue.serverTimestamp()
     })
-    .then(refDoc => {
-      console.log(`Id del comentario => ${refDoc.id}`)
-    })
-    .catch(error => {
-      console.log(`error creando el comentario => ${error}`)
-    })
+      .then(refDoc => {
+        console.log(`Id del comentario => ${refDoc.id}`)
+      })
+      .catch(error => {
+        console.log(`error creando el comentario => ${error}`)
+      })
   }
 }
+
+// function checked(cha) {
+//   if (document.getElementById(cha).checked) {
+//     alert(cha)
+//     alert(document.getElementById(cha).checked)
+
+//   } else {
+//     alert(cha)
+//     alert(document.getElementById(cha).checked)
+//   }
+// }
+
+// $(document).ready(function () {
+//   $('input[type="checkbox"]').click(function () {
+//     if ($(this).prop("checked") == true) {
+//       alert("Checkbox is checked.");
+//     }
+//     else if ($(this).prop("checked") == false) {
+//       alert("Checkbox is unchecked.");
+//     }
+//   })
+// })
 
 $('#btncontactForm').click(() => {
   const comentarios = new Comentarios()
 
   const titulo = $('#nombreContacto').val()
   const descripcion = $('#comentariosContacto').val()
+
 
   comentarios
     .crearComentario(
@@ -33,7 +57,7 @@ $('#btncontactForm').click(() => {
     .then(resp => {
       Materialize.toast(`comentario creado correctamente`, 4000)
     })
-    .catch(err => {
-      Materialize.toast(`Error => ${err}`, 4000)
+    .catch(error => {
+      Materialize.toast(`Error => ${error}`, 4000)
     })
 })
